@@ -20,16 +20,16 @@ class GameState:
         self.current_players_turn = 1
 
     def update_player_turn(self, player_character: str, position: str):
-        self.board_state.board_state_dictionary[position] = player_character
+        self.board_state.set_value_of_board_space(position, player_character)
 
     def check_for_win(self) -> Tuple[bool, str]:
         board_values = self.board_state.get_board_as_2d_array()
         (game_over, winner) = self.__check_rows(board_values)
-        if game_over:
+        if game_over and winner != '' and winner != ' ':
             return True, winner
 
         (game_over, winner) = self.__check_diagonals(board_values)
-        if game_over:
+        if game_over and winner != '' and winner != ' ':
             return True, winner
 
         return False, ''
@@ -37,7 +37,8 @@ class GameState:
     @staticmethod
     def __check_rows(board_values: List[List[str]]) -> Tuple[bool, str]:
         for row in board_values:
-            if len(set(row)) == 1:
+            emptyEntiresInRow = ' ' in row
+            if len(set(row)) == 1 and not emptyEntiresInRow:
                 return True, row[0]
 
         return False, ''

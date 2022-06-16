@@ -21,10 +21,18 @@ class ConsoleGameBoard(GameBoard):
 		self.__board_separator = "|"
 
 	def print_game_board(self, board_state: BoardState, display_msg: str):
-		board_dict = board_state.board_state_dictionary
-		print('\n' * 100)
+		a1 = board_state.get_value_from_board_space('a1')
+		a2 = board_state.get_value_from_board_space('a2')
+		a3 = board_state.get_value_from_board_space('a3')
+		b1 = board_state.get_value_from_board_space('b1')
+		b2 = board_state.get_value_from_board_space('b2')
+		b3 = board_state.get_value_from_board_space('b3')
+		c1 = board_state.get_value_from_board_space('c1')
+		c2 = board_state.get_value_from_board_space('c2')
+		c3 = board_state.get_value_from_board_space('c3')
+		print('\n' * 20)
 		print(f"{display_msg}\n" +
-			  f"{board_dict['a1']}{self.__board_separator}{board_dict['a2']}{self.__board_separator}{board_dict['a3']}\n" +
-			  f"{board_dict['b1']}{self.__board_separator}{board_dict['b2']}{self.__board_separator}{board_dict['b3']}\n" +
-			  f"{board_dict['c1']}{self.__board_separator}{board_dict['c2']}{self.__board_separator}{board_dict['c3']}")
+			  f"{a1}{self.__board_separator}{a2}{self.__board_separator}{a3}\n" +
+			  f"{b1}{self.__board_separator}{b2}{self.__board_separator}{b3}\n" +
+			  f"{c1}{self.__board_separator}{c2}{self.__board_separator}{c3}")
 		return

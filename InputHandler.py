@@ -1,4 +1,5 @@
 import abc
+import random
 from typing import List
 
 
@@ -41,3 +42,33 @@ class ConsoleGameInputHandler(GameInputHandler):
                     return val
                 elif val not in taken_map_placements:
                     return val
+
+class DummyAiGameInputHandler(GameInputHandler):
+    __valid_map_placements: List[str]
+
+    def __init__(self, valid_map_placements: List[str]):
+        self.__valid_map_placements = list(valid_map_placements)
+
+    def play_turn(self, taken_map_placements: List[str]) -> str:
+        result = []
+        for valid_placement in self.__valid_map_placements:
+            add = True
+            for placement in taken_map_placements:
+                if valid_placement is placement:
+                    add = False
+                    break
+            if add:
+                result.append(valid_placement)
+
+        length = len(result)
+        length_to_use = length - 1
+        if length == 0:
+            length_to_use = 0
+
+            randomIndex = random.Random().randrange(0, length, 1)
+        try:
+            randonMove = result[length_to_use]
+        except Exception:
+            print('failed using ', randomIndex, len(result))
+
+        return randonMove
